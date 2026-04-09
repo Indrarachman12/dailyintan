@@ -82,8 +82,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
               id: row.No, // ✅ FIX
               date: parseIndonesianDate(row.tanggal), // ini sudah benar
               category: cat as 'show' | 'event' | 'others' | 'away',
-              name: row['Nama Event'] || 'Unknown', // ✅ FIX (pFakai bracket)
-              venue: 'JKT48 Theater'
+              name: row['Nama Event'] || 'Unknown', // ✅ FIX (pakai bracket)
             };
           });
 

@@ -40,7 +40,6 @@ export default function HistoryPage() {
       data = data.filter(
         (d) =>
           d.name.toLowerCase().includes(q) ||
-          d.venue.toLowerCase().includes(q) ||
           d.date.includes(q)
       );
     }
@@ -114,13 +113,13 @@ export default function HistoryPage() {
                 <th className="sortable" onClick={() => handleSort('name')}>
                   Nama Event / Setlist <span className="sort-icon">⇅</span>
                 </th>
-                <th>Venue</th>
+
               </tr>
             </thead>
             <tbody id="history-tbody">
               {slice.length === 0 ? (
                 <tr>
-                  <td colSpan={5} style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '32px' }}>
+                  <td colSpan={4} style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '32px' }}>
                     Tidak ada data ditemukan.
                   </td>
                 </tr>
@@ -140,7 +139,7 @@ export default function HistoryPage() {
                       }
                     </td>
                     <td>{d.name}</td>
-                    <td style={{ color: 'var(--text-muted)', fontSize: 12 }}>{d.venue}</td>
+
                   </tr>
                 ))
               )}

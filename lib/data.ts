@@ -8,7 +8,6 @@ export interface HistoryEntry {
   date: string;
   category: 'show' | 'event' | 'others' | 'away';
   name: string;
-  venue: string;
 }
 
 export interface ChartEntry {
