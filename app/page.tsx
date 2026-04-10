@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getSetlistCounts, getChartData, formatDate, HistoryEntry } from '@/lib/data';
+import { getSetlistCounts, getChartData, formatDate, isMainlyShow, HistoryEntry } from '@/lib/data';
 import { useData } from '@/lib/DataContext';
 import { showToast } from '@/components/Toast';
 
@@ -205,7 +205,13 @@ function BarChartCard({ history }: { history: HistoryEntry[] }) {
 
 /* ---- Quick Setlist ---- */
 function QuickSetlistCard({ onSeeAll, history }: { onSeeAll: () => void, history: HistoryEntry[] }) {
-  const top = getSetlistCounts(history).slice(0, 7);
+  const all = getSetlistCounts(history);
+
+  const showItems = all.filter(([name]) => isMainlyShow(name, history));
+  const othersItems = all.filter(([name]) => !isMainlyShow(name, history));
+
+  const topShows = showItems.slice(0, 4);
+  const topOthers = othersItems.slice(0, 3);
 
   return (
     <div className="setlist-card glass-card">
@@ -214,10 +220,28 @@ function QuickSetlistCard({ onSeeAll, history }: { onSeeAll: () => void, history
         <button className="btn-text" onClick={onSeeAll}>Lihat semua →</button>
       </div>
       <div className="setlist-list" id="quick-setlist">
-        {top.map(([name, count]) => (
+        {/* Show Theater */}
+        <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--purple)', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>
+          🎭 Show Theater
+        </div>
+        {topShows.map(([name, count]) => (
           <div key={name} className="setlist-item">
             <span className="setlist-name" title={name}>{name}</span>
-            <span className="setlist-count">{count}x</span>
+            <span className="setlist-count" style={{ background: 'var(--purple)', color: '#fff' }}>{count}x</span>
+          </div>
+        ))}
+
+        {/* Divider */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', margin: '8px 0' }} />
+
+        {/* Others / Back Dancer */}
+        <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--cyan)', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>
+          💃 Others / Back Dancer
+        </div>
+        {topOthers.map(([name, count]) => (
+          <div key={name} className="setlist-item">
+            <span className="setlist-name" title={name}>{name}</span>
+            <span className="setlist-count" style={{ background: 'var(--cyan)', color: '#fff' }}>{count}x</span>
           </div>
         ))}
       </div>
