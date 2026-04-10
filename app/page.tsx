@@ -236,7 +236,7 @@ function QuickSetlistCard({ onSeeAll, history }: { onSeeAll: () => void, history
 
         {/* Others / Back Dancer */}
         <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--cyan)', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>
-          💃 Others / Back Dancer
+          💃 Event / Back Dancer
         </div>
         {topOthers.map(([name, count]) => (
           <div key={name} className="setlist-item">
