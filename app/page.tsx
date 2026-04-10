@@ -31,7 +31,7 @@ export default function DashboardPage() {
   const { member, history, loading } = useData();
 
   const totalShowsCount = history.filter(d => d.category === 'show').length;
-  const totalEventsCount = history.filter(d => d.category === 'event').length;
+  const totalEventsCount = history.filter(d => d.category === 'event' || d.category === 'away' || d.category === 'others').length;
 
   const totalShows = useCounter(totalShowsCount);
   const totalEvents = useCounter(totalEventsCount);
@@ -42,6 +42,21 @@ export default function DashboardPage() {
     .filter(d => d.category === 'show')
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const lastShow = sortedShows[0];
+
+  // Hitung jumlah show & event bulan ini
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  const showsThisMonth = history.filter(d => {
+    const date = new Date(d.date);
+    return d.category === 'show' && date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+  }).length;
+
+  const eventsThisMonth = history.filter(d => {
+    const date = new Date(d.date);
+    return d.category !== 'show' && date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+  }).length;
 
   if (loading) {
     return (
@@ -104,7 +119,9 @@ export default function DashboardPage() {
             <p className="stat-label">Show Theater</p>
             <p className="stat-value">{totalShows}</p>
           </div>
-          <div className="stat-trend up">↑ 3 bulan ini</div>
+          <div className={`stat-trend ${showsThisMonth > 0 ? 'up' : 'neutral'}`}>
+            {showsThisMonth > 0 ? `↑ ${showsThisMonth} bulan ini` : '— Belum ada bulan ini'}
+          </div>
         </div>
 
         <div className="stat-card glass-card" id="stat-setlist">
@@ -133,7 +150,9 @@ export default function DashboardPage() {
             <p className="stat-label">Total Event</p>
             <p className="stat-value">{totalEvents}</p>
           </div>
-          <div className="stat-trend up">↑ 2 bulan ini</div>
+          <div className={`stat-trend ${eventsThisMonth > 0 ? 'up' : 'neutral'}`}>
+            {eventsThisMonth > 0 ? `↑ ${eventsThisMonth} bulan ini` : '— Belum ada bulan ini'}
+          </div>
         </div>
       </div>
 
