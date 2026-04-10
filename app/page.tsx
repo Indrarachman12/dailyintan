@@ -31,7 +31,7 @@ export default function DashboardPage() {
   const { member, history, loading } = useData();
 
   const totalShowsCount = history.filter(d => d.category === 'show').length;
-  const totalEventsCount = history.filter(d => d.category === 'event' || d.category === 'away' || d.category === 'others').length;
+  const totalEventsCount = history.filter(d => d.category === 'event').length;
 
   const totalShows = useCounter(totalShowsCount);
   const totalEvents = useCounter(totalEventsCount);
@@ -55,7 +55,7 @@ export default function DashboardPage() {
 
   const eventsThisMonth = history.filter(d => {
     const date = new Date(d.date);
-    return d.category !== 'show' && date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    return d.category === 'event' && date.getMonth() === currentMonth && date.getFullYear() === currentYear;
   }).length;
 
   if (loading) {
