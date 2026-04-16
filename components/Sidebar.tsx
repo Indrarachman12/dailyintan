@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 const NAV_ITEMS = [
-  { href: '/',         icon: '⬡', label: 'Dashboard' },
-  { href: '/history',  icon: '◫', label: 'Riwayat'   },
-  { href: '/setlist',  icon: '♬', label: 'Setlist'   },
-  { href: '/stats',    icon: '◈', label: 'Statistik' },
+  { href: '/', icon: '⬡', label: 'Dashboard' },
+  { href: '/history', icon: '◫', label: 'Riwayat' },
+  { href: '/setlist', icon: '♬', label: 'Daftar Penampilan' },
+  { href: '/stats', icon: '◈', label: 'Statistik' },
 ];
 
 interface SidebarProps {
