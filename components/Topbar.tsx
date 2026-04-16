@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 const PAGE_TITLES: Record<string, string> = {
   '/':        'Dashboard',
   '/history': 'Riwayat Penampilan',
-  '/setlist': 'Setlist',
+  '/setlist': 'Daftar Penampilan',
   '/stats':   'Statistik',
 };
 
