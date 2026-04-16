@@ -70,7 +70,7 @@ export default function SetlistPage() {
 
   return (
     <div className="page-wrapper">
-      {renderSection('Data Setlist', dataSetlist, 'card-theme-show')}
+      {renderSection('Setlist', dataSetlist, 'card-theme-show')}
       {renderSection('Back Dancer', backDancerList, 'card-theme-backdancer')}
       {renderSection('Away', awayList, 'card-theme-away')}
       {renderSection('Event', eventList, 'card-theme-event')}
