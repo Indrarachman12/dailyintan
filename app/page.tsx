@@ -39,7 +39,7 @@ export default function DashboardPage() {
   const topName = topSetlist[0]?.[0] ?? '–';
 
   const sortedShows = history
-    .filter(d => d.category === 'show')
+    .filter(d => d.category === 'show' || d.name.toLowerCase().includes('back dancer'))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const lastShow = sortedShows[0];
 
@@ -47,6 +47,9 @@ export default function DashboardPage() {
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
+
+  // Lebih dari 30 hari = tidak "sedang aktif"
+  const isRecentlyActive = lastShow && (now.getTime() - new Date(lastShow.date).getTime()) < 30 * 24 * 60 * 60 * 1000;
 
   const showsThisMonth = history.filter(d => {
     const date = new Date(d.date);
@@ -138,10 +141,12 @@ export default function DashboardPage() {
         <div className="stat-card glass-card" id="stat-last">
           <div className="stat-icon-wrap icon-pink">📅</div>
           <div className="stat-body">
-            <p className="stat-label">Show Terakhir</p>
+            <p className="stat-label">Penampilan Terakhir</p>
             <p className="stat-value text-sm" id="last-show-date">{lastShow ? formatDate(lastShow.date) : '–'}</p>
           </div>
-          <div className="stat-trend up">↑ Sedang aktif</div>
+          <div className={`stat-trend ${isRecentlyActive ? 'up' : 'neutral'}`}>
+            {isRecentlyActive ? '↑ Sedang aktif' : '— Belum tampil lagi'}
+          </div>
         </div>
 
         <div className="stat-card glass-card" id="stat-events">
