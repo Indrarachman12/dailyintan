@@ -43,6 +43,14 @@ export default function DashboardPage() {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const lastShow = sortedShows[0];
 
+  const lastShowTheater = history
+    .filter(d => d.category === 'show' && !d.name.toLowerCase().includes('back dancer'))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+
+  const lastOther = history
+    .filter(d => d.category !== 'show' || d.name.toLowerCase().includes('back dancer'))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+
   // Hitung jumlah show & event bulan ini
   const now = new Date();
   const currentMonth = now.getMonth();
@@ -142,7 +150,16 @@ export default function DashboardPage() {
           <div className="stat-icon-wrap icon-pink">📅</div>
           <div className="stat-body">
             <p className="stat-label">Penampilan Terakhir</p>
-            <p className="stat-value text-sm" id="last-show-date">{lastShow ? formatDate(lastShow.date) : '–'}</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '6px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--purple)', textTransform: 'uppercase' }}>Show</span>
+                <span className="stat-value" style={{ fontSize: 14 }}>{lastShowTheater ? formatDate(lastShowTheater.date) : '–'}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--cyan)', textTransform: 'uppercase' }}>Other</span>
+                <span className="stat-value" style={{ fontSize: 14 }}>{lastOther ? formatDate(lastOther.date) : '–'}</span>
+              </div>
+            </div>
           </div>
           <div className={`stat-trend ${isRecentlyActive ? 'up' : 'neutral'}`}>
             {isRecentlyActive ? '↑ Sedang aktif' : '— Belum tampil lagi'}
