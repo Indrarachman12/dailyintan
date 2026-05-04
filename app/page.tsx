@@ -156,7 +156,7 @@ export default function DashboardPage() {
                 <span className="stat-value" style={{ fontSize: 14 }}>{lastShowTheater ? formatDate(lastShowTheater.date) : '–'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--cyan)', textTransform: 'uppercase' }}>Backdancer/Offair/Onair</span>
+                <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--cyan)', textTransform: 'uppercase' }}>Backdancer</span>
                 <span className="stat-value" style={{ fontSize: 14 }}>{lastOther ? formatDate(lastOther.date) : '–'}</span>
               </div>
             </div>
